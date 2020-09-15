@@ -4,7 +4,7 @@
 from urllib import request
 import urllib.request
 from bs4 import BeautifulSoup
-
+from multiprocessing import Pool
 
 x = 1
 
@@ -29,9 +29,16 @@ def func():
             global x
             urllib.request.urlretrieve(link, "image\%s.jpg" % x)
             x += 1
+            print('已下载%s张' % x)
 
 
-func()
+if __name__ == '__main__':
+    pool = Pool(10)
+    for i in range(10):
+        pool.apply_async(func)
+    pool.close()  # 关闭进程池，关闭后po不再接收新的请求
+    pool.join()  # 等待po中所有子进程执行完成，再执行下面的代码,可以设置超时时间join(timeout=)
+
 
 
 
