@@ -1,7 +1,7 @@
 """99乘法表"""
 # j = 0
-# while j < 9:  # 先判断最外层循环多少，循环9层<9
-#     j += 1  # 每次循环+1
+# j < 9:  # 先判断最外层循环多少，循环9层<9
+#     j  while += 1  # 每次循环+1
 #     i = 0
 #     while i < j:  # 内循环根据外循环变化，始终小于外循环的次数，并且每次循环结束后，重新从0计算，一个内循环打印一行，一直到不满足这个while条件时跳出这个内循环
 #         i += 1
@@ -130,3 +130,27 @@ for i in f:
     print(i)
     time.sleep(1)
 
+import random
+
+dic = {}
+lis = ['KeLan', 'Monkey', 'Dexter', 'Superman', 'Iron Man', 'Robin']
+
+
+def redpacket(cash, person, index):
+    if cash > 0 and person != 1:
+        n = round(random.uniform(0.01, cash - (0.01 * person)), 2)
+        dic[lis[index]] = n
+        print(str(n).ljust(4, "0"))
+        person -= 1
+        cash -= n
+        index += 1
+        redpacket(cash, person, index)
+    else:
+        dic[lis[index]] = round(cash, 2)
+
+        print(str(cash).ljust(4, "0"))
+
+
+redpacket(10, len(lis), 0)
+
+print("手气最佳:", max(dic.items(), key=lambda x: x[1]))
